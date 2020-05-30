@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Interactive Video</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/interaction.css" />
+  </head>
+
+  <body onload="pageLoaded()">
+    <div class="container">
+      <div class="row videoArea">
+        <video
+          id="video1"
+          src="media/office_conv.m4v"
+          type="video/mp4"
+          controls
+        >
+          no support
+        </video>
+        <div class="menu">
+          <ul class="menuItems">
+            <li onclick="jumpToPoint(10)">Item1</li>
+            <li onclick="jumpToPoint(20)">Item2</li>
+            <li onclick="jumpToPoint(30)">Item3</li>
+          </ul>
+          <h5>Change Video</h5>
+          <ul class="menuItems">
+            <li onclick="loadVideo(`media/newVid.mp4`)">ChangeVideo</li>
+            <li onclick="loadVideo(`media/office_conv.m4v`)">ChangeVideo2</li>
+            <li onclick="loadVideo()">ChangeVideo3</li>
+          </ul>
+        </div>
+
+        <img src="media/menu.png" class="menuIcon" onclick="animateMenu()" />
+
+        <div class="hotspot" id="hotspot1"></div>
+      </div>
+    </div>
+    <div class="container controlArea">
+      <div class="row">
+        <!-- <img id="play_pause" src="/media/play.png" onclick="toggleVideo()" /> -->
+        <div id="playBtn" onclick="muteAudio()"></div>
+      </div>
+    </div>
+    <div class="modal" id="modal1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <p id="modalText">Did you know that</p>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Continue Video
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/interaction.js"></script>
+  </body>
+</html>
