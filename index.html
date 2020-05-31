@@ -11,68 +11,68 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
     />
+    <!-- Animate CSs -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="css/interaction.css" />
   </head>
 
-  <body onload="pageLoaded()">
+  <body>
     <div class="container">
-      <div class="row videoArea">
-        <video
-          id="video1"
-          src="media/office_conv.m4v"
-          type="video/mp4"
-          controls
-        >
+      <div class="row justify-content-md-center">
+        <video id="video1" type="video/mp4" controls onended="onEnded()">
           no support
         </video>
-        <div class="menu">
-          <ul class="menuItems">
-            <li onclick="jumpToPoint(10)">Item1</li>
-            <li onclick="jumpToPoint(20)">Item2</li>
-            <li onclick="jumpToPoint(30)">Item3</li>
-          </ul>
-          <h5>Change Video</h5>
-          <ul class="menuItems">
-            <li onclick="loadVideo(`media/newVid.mp4`)">ChangeVideo</li>
-            <li onclick="loadVideo(`media/office_conv.m4v`)">ChangeVideo2</li>
-            <li onclick="loadVideo()">ChangeVideo3</li>
-          </ul>
-        </div>
-
-        <img src="media/menu.png" class="menuIcon" onclick="animateMenu()" />
-
-        <div class="hotspot" id="hotspot1"></div>
       </div>
     </div>
     <div class="container controlArea">
       <div class="row">
-        <!-- <img id="play_pause" src="/media/play.png" onclick="toggleVideo()" /> -->
-        <div id="playBtn" onclick="muteAudio()"></div>
+        <ul id="playlist"></ul>
       </div>
     </div>
-    <div class="modal" id="modal1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
+    <div class="container controlArea">
+      <div class="row">
+        <img
+          id="play_pause"
+          class="control_buttons"
+          src="./media/play.png"
+          alt="play_pause"
+          onclick="toggleVideo()"
+        />
 
-          <!-- Modal body -->
-          <div class="modal-body">
-            <p id="modalText">Did you know that</p>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">
-              Continue Video
-            </button>
-          </div>
-        </div>
+        <img
+          id="next"
+          class="control_buttons"
+          src="./media/next.png"
+          alt="next_video"
+          onclick="nextVideo()"
+        />
+
+        <img
+          id="prev"
+          class="control_buttons"
+          src="./media/prev.png"
+          alt="prev_video"
+          onclick="prevVideo()"
+        />
+        <img
+          id="shuffle"
+          class="control_buttons"
+          src="./media/shuffle.png"
+          alt="prev_video"
+          onclick="shuffleOnOf()"
+        />
       </div>
     </div>
-    <!-- Bootstrap -->
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-    <!-- Custom JS -->
     <script src="js/interaction.js"></script>
   </body>
 </html>

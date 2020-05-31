@@ -1,35 +1,34 @@
 //Variable
+let videosData;
+let currentPlaying = 0;
 const video1 = document.getElementById('video1');
-let initialPlay = false;
-let menuIn = true;
-
-let showQuestion = false;
-
+let isShuffle = false;
 //Time Variables
 let currentTime = 0;
-let halfwayPoint;
-let durationPoint;
 
-//Video Load
-video1.onloadedmetadata = function () {
-  durtaionPoint = Math.round(video1.duration);
-  halfwayPoint = Math.round(video1.duration / 2);
-};
+document.addEventListener('DOMContentLoaded', function (event) {
+  fetch('../data/data.json')
+    .then((response) => response.json())
+    .then((data) => {
+      videosData = data;
+      video1.setAttribute('src', videosData[currentPlaying].file);
+      initializePlayList();
+    });
+});
 
-video1.onplay = function () {
-  if (!initialPlay) {
-    initialPlay = true;
+function initializePlayList() {
+  var ul = document.getElementById('playlist');
+  for (let i = 0; i < videosData.length; i++) {
+    let _img = document.createElement('img');
+    _img.src = videosData[i].thumbnail;
+    let li = document.createElement('li');
+    li.id = i;
+    li.appendChild(document.createTextNode(videosData[i].title));
+    li.appendChild(_img);
+    ul.appendChild(li);
   }
-};
-
-video1.onpause = function () {
-  // showModal('This is the new text for the modal!');
-};
-
-video1.onended = function () {
-  alert('Video ended');
-};
-
+  highlightCurrentPlaying();
+}
 function toggleVideo() {
   if (!video1.paused) {
     document.getElementById('play_pause').src = 'media/play.png';
@@ -39,70 +38,49 @@ function toggleVideo() {
     video1.play();
   }
 }
-// Mute Audio
-function muteAudio() {
-  if (!video1.muted) {
-    video1.muted = true;
+function nextVideo() {
+  currentPlaying++;
+  if (currentPlaying === videosData.length) currentPlaying = 0;
+  video1.setAttribute('src', videosData[currentPlaying].file);
+  video1.play();
+  document.getElementById('play_pause').src = 'media/pause.png';
+  highlightCurrentPlaying();
+}
+function prevVideo() {
+  currentPlaying--;
+  if (currentPlaying < 0) currentPlaying = videosData.length - 1;
+  video1.setAttribute('src', videosData[currentPlaying].file);
+  video1.play();
+  document.getElementById('play_pause').src = 'media/pause.png';
+  highlightCurrentPlaying();
+}
+function highlightCurrentPlaying() {
+  let currentVideo = document.getElementsByClassName('selected');
+  currentVideo.length ? currentVideo[0].classList.remove('selected') : null;
+  document.getElementById(currentPlaying).classList.add('selected');
+}
 
-    document.getElementById('playBtn').style.backgroundImage =
-      'url(media/audio_mute.png)';
+function onEnded() {
+  console.log(isShuffle);
+  if (isShuffle) {
+    shuffle();
   } else {
-    video1.muted = false;
-    document.getElementById('playBtn').style.backgroundImage =
-      'url(media/audio_up.png)';
+    currentPlaying++;
+    currentPlaying < videosData.length
+      ? video1.setAttribute('src', videosData[currentPlaying].file)
+      : null;
   }
+  highlightCurrentPlaying();
 }
-function animateMenu() {
-  if (menuIn) {
-    console.log(true);
-    $('.menu').animate({ right: '0' }, 500);
-    menuIn = false;
-  } else {
-    console.log(false);
-    $('.menu').animate({ right: '-405px' }, 500);
-    menuIn = true;
-  }
+
+function shuffleOnOf() {
+  isShuffle = !isShuffle;
+  if (isShuffle) shuffle();
+  highlightCurrentPlaying();
 }
-//jump to point
-function jumpToPoint(time) {
-  video1.currentTime = time;
-}
-function loadVideo(e) {
-  video1.src = e;
-  animateMenu();
+function shuffle() {
+  let randomVideo = Math.floor(Math.random() * videosData.length - 1) + 1;
+  video1.setAttribute('src', videosData[randomVideo].file);
+  currentPlaying = randomVideo;
   video1.play();
 }
-// video1.onseeked = function () {
-//   console.log('seeking');
-// };
-// video1.onvolumechange = function () {
-//   console.log('volume');
-// };
-video1.ontimeupdate = function () {
-  currentTime = Math.round(video1.currentTime);
-
-  if (currentTime === 5) {
-    if (!showQuestion) {
-      showQuestion = true;
-      $('#modal1').modal('show');
-    }
-  }
-  if (currentTime == halfwayPoint) {
-    alert('HalfWay');
-  }
-};
-//Page Loaded
-function pageLoaded() {}
-
-function showModal(e) {
-  document.getElementById('modalText').innerHTML = e;
-  $('#modal1').modal('show');
-}
-
-$(document).on('show.bs.modal', '#modal1', function () {
-  video1.pause();
-});
-
-$(document).on('hide.bs.modal', '#modal1', function () {
-  video1.play();
-});

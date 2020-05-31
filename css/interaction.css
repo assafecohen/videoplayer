@@ -1,57 +1,29 @@
-/* Body Background */
 body {
   margin-top: 20px;
   background-color: #d5d9de;
 }
-
-/* Text Style */
 p {
   color: #656565;
 }
 
-/* Bootstrap Container */
 .container {
   background-color: white;
   box-shadow: 0 0 5px #9d9d9d;
 }
-
-/* Responsive Video */
+.control_buttons {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  cursor: pointer;
+}
 video {
-  width: 100%;
-  height: 100%;
+  width: 640px;
+  height: 360px;
 }
 .controlArea {
   padding: 25px;
   margin-top: 20px;
   margin-bottom: 20px;
-}
-/* Custome Button */
-#playBtn {
-  background-color: #000;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  background-image: url(../media/audio_up.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 35px;
-}
-#playBtn:hover {
-  background-color: #2e2f2f;
-  cursor: pointer;
-}
-/* Menu */
-.videoArea {
-  position: relative;
-  overflow: hidden;
-}
-.menuIcon {
-  position: absolute;
-  cursor: pointer;
-  right: 10px;
-  top: 10px;
-  width: 40;
-  height: 40px;
 }
 
 .menu {
@@ -63,20 +35,29 @@ video {
   height: 100%;
   padding: 70px 0;
 }
-.menuItems {
-  color: #fff;
+#playlist {
+  color: #000;
   margin: 0;
   padding: 0;
   background-color: rgba(255, 255, 255, 0.3);
   border-bottom: 1px solid #a7a7a7;
   cursor: pointer;
 }
-.menuItems li {
+#playlist li {
   list-style: none;
   padding: 10px 15px;
-  background-color: rgba(255, 255, 255, 0.3);
   border-bottom: 1px solid #a7a7a7;
   cursor: pointer;
+}
+.selected {
+  background: rgb(166, 236, 160);
+}
+#playlist li img {
+  height: 35px;
+  width: 35px;
+}
+.current_playing {
+  background: #c3c796;
 }
 .menuItems li:hover {
   background-color: rgba(255, 255, 255, 0.4);
@@ -85,17 +66,4 @@ video {
 .menu h5 {
   color: #fff;
   padding: 25px 10px;
-}
-/* Hotspot */
-
-.hotspot {
-  position: absolute;
-  background-color: rgba(36, 110, 211, 0.4);
-  cursor: pointer;
-}
-#hotspot1 {
-  width: 100px;
-  height: 160px;
-  top: 100px;
-  left: 250px;
 }
