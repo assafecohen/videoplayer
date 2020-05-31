@@ -3,8 +3,6 @@ let videosData;
 let currentPlaying = 0;
 const video1 = document.getElementById('video1');
 let isShuffle = false;
-//Time Variables
-let currentTime = 0;
 
 document.addEventListener('DOMContentLoaded', function (event) {
   fetch('../data/data.json')
@@ -59,20 +57,20 @@ function highlightCurrentPlaying() {
   currentVideo.length ? currentVideo[0].classList.remove('selected') : null;
   document.getElementById(currentPlaying).classList.add('selected');
 }
-
 function onEnded() {
-  console.log(isShuffle);
   if (isShuffle) {
     shuffle();
   } else {
     currentPlaying++;
-    currentPlaying < videosData.length
+    currentPlaying === videosData.length
+      ? (currentPlaying = 0)
+      : currentPlaying
       ? video1.setAttribute('src', videosData[currentPlaying].file)
-      : null;
+      : video1.setAttribute('src', videosData[0].file);
   }
   highlightCurrentPlaying();
+  video1.play();
 }
-
 function shuffleOnOf() {
   isShuffle = !isShuffle;
   if (isShuffle) shuffle();
@@ -82,5 +80,4 @@ function shuffle() {
   let randomVideo = Math.floor(Math.random() * videosData.length - 1) + 1;
   video1.setAttribute('src', videosData[randomVideo].file);
   currentPlaying = randomVideo;
-  video1.play();
 }
